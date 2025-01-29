@@ -1,12 +1,37 @@
 {% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Pralay_Mitra - Home</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
 
-<title>
-    {%block title%} {% endblock%}
-</title>
+{% block content %}
+{% include "components/navbar.html" %}
 
-{% block body %}
 <div class="container">
-    <h1>Home</h1>
-    <p>Welcome to the home page</p>
+  <h3 class="mt-4">
+    Five Most Flood-Prone Districts in Uttar Pradesh : High-Risk Zones Identified<i class=" fas fa-exclamation-triangle text-danger " style="margin-left: 3px;"></i></h3>
+</div>
+<div class="container">
+  <div class="row">
+    {% for district in flood_data %}
+      <div class="col-md-4 mt-4">
+          <div class="card" style="width: 20rem;">
+              <div class="card-body">
+                <div class="card-header text-center">
+                  <h5>{{ district.district }}</h5>
+              </div>
+              <img src={{district.image}} alt="{{ data.district }}" class="card-img-top mb-4" style="max-height: 150px; object-fit: cover;">
+                  <h6>Flood-Prone Areas:</h6>
+                  <p>{{ district.flood_prone_areas }}</p>
+                  <h6>Recent Incidents:</h6>
+                  <p>{{ district.recent_incidents }}</p>
+              </div>
+          </div>
+      </div>
+      {% endfor %}
+      
+     
+  </div>
 </div>
 {% endblock %}
