@@ -2,107 +2,61 @@ html, body {
     height: 100%;
     margin: 0; /* Remove default margin */
 }
-        body {
-            font-family: Arial, sans-serif;
-        }
-    
-        .sidebar {
-            height: 100vh;
-            width: 250px; /* Fixed width */
-            background-color: #015296;
-            color: white;
-            overflow: hidden; /* Prevent any content overflow */
-            display: flex;
-            flex-direction: column;
-            padding: 0; /* Ensure vertical alignment of items */
-        }html, body {
-            height: 100%;
-            margin: 0; /* Remove default margin */
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-        }
-        
-        .sidebar {
-            height: 100vh; /* 100% of the viewport height */
-            width: 250px; /* Fixed width */
-            background-color: #015296;
-            color: white;
-            overflow: hidden; /* Prevent any content overflow */
-            display: flex;
-            flex-direction: column;
-            padding: 0; /* Ensure vertical alignment of items */
-        }
-        
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 10px 15px; /* Uniform padding */
-            font-size: 1rem; /* Consistent font size */
-            text-overflow: ellipsis; /* Prevent long text from breaking layout */
-            white-space: nowrap; /* Prevent wrapping */
-            overflow: hidden; /* Prevent text overflow */
-            transition: background-color 0.3s, font-weight 0.3s; /* Smooth hover effect */
-        }
-        
-        .sidebar a.active {
-            background-color: #d5e0e8;
-            color: #015296;
-            font-weight: bold;
-        }
-        
-        .sidebar h4 {
-            text-align: left;
-            padding-left: 10px;
-            margin-top: 0px;
-            font-size: 1.8rem;
-        }
-        
-        .sidebar a:hover {
-            background-color: #d5e0e8;
-        }
-        
-        .text-container {
-            width: 200px;
-            margin-left: 0px;
-            padding-left: 0px;
-        }
-        
-    
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 10px 15px; /* Uniform padding */
-            font-size: 1rem; /* Consistent font size */
-            text-overflow: ellipsis; /* Prevent long text from breaking layout */
-            white-space: nowrap; /* Prevent wrapping */
-            overflow: hidden; /* Prevent text overflow */
-            transition: background-color 0.3s, font-weight 0.3s; /* Smooth hover effect */
-        }
-    
-        .sidebar a.active {
-            background-color: #d5e0e8;
-            color: #015296;
-            font-weight: bold;
-        }
-        .sidebar h4{
-            text-align: left;
-            padding-left: 10px;
-            margin-top: 0px;
-            font-size: 1.8rem;
-        }
-        .sidebar a:hover {
-            background-color: #d5e0e8;
-        }
-    
-        
-        .text-container{
-            width: 200px;
-            margin-left: 0px;
-            padding-left: 0px;
-        }
 
-        
+body {
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    min-height: 100vh; /* Ensure the sidebar is at least 100% of the viewport height */
+    width: 250px; /* Fixed width */
+    background-color: #015296;
+    color: white;
+    overflow: hidden; /* Prevent any content overflow */
+    display: flex;
+    flex-direction: column;
+    padding: 15px; /* Ensure vertical alignment of items */
+    position: fixed; /* Fix the sidebar position */
+    top: 0;
+    left: 0;
+}
+
+.main-content {
+    margin-left: 250px; /* Adjust the main content to account for the sidebar width */
+    padding: 15px;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px; /* Uniform padding */
+    font-size: 1rem; /* Consistent font size */
+    text-overflow: ellipsis; /* Prevent long text from breaking layout */
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Prevent text overflow */
+    transition: background-color 0.3s, font-weight 0.3s; /* Smooth hover effect */
+}
+
+.sidebar a.active {
+    background-color: #d5e0e8;
+    color: #015296;
+    font-weight: bold;
+}
+
+.sidebar h4 {
+    text-align: left;
+    padding-left: 10px;
+    margin-top: 0px;
+    font-size: 1.8rem;
+}
+
+.sidebar a:hover {
+    background-color: #d5e0e8;
+}
+
+.text-container {
+    width: 200px;
+    margin-left: 0px;
+    padding-left: 0px;
+}
