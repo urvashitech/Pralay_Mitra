@@ -37,7 +37,7 @@ def home(request):
     }
 ]
     
-    cities = TopDisasters.objects.order_by('s_number')
+    cities = TopDisasters.objects.order_by('rainFall')
 
     return render (request, 'home.html',
                    {'cities': cities,}

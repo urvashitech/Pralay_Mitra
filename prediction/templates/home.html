@@ -17,9 +17,10 @@
         High-Risk Zones Identified<i class=" fas fa-exclamation-triangle text-danger " style="margin-left: 3px;"></i></h3>
         
         {% for cities in cities|slice:"0:3"%}
-        <div class="card mb-3 mt-4 " style="width: 18rem; height: 10rem; margin-left: 100px; background-color:  #F0F7FF;">
+        <div class="card mb-3 mt-4 " style="width: 18rem; height: 11rem; margin-left: 100px; background-color:  #F0F7FF;">
           <div class="card-body">
-            <h5 class="card-title text-center mb-3">{{cities.cityName}}</h5>
+            <h5 class="card-title  text-center mb-2">{{cities.cityName}}</h5>
+            <p class="card-text mb-1 mt-0">Rainfall - {{cities.rainFall}}cm</p>
             <p class="card-text mb-1" >Temprature - {{cities.temperature}}<span>&#176;</span>C</p>
             <p class="card-text mb-1 mt-0">Humidity - {{cities.humidity}}%</p>
             <p class="card-text mb-1 mt-0">Wind Speed - {{cities.windSpeed}} km/h</p>
