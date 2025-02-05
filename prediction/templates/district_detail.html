@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+<title>Pralay_Mitra - Prediction</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+{% include "components/navbar.html" %}
+
+<h1> Welcome to the Detailed page - {{district}}</h1>
+<h1> Temperature is - {{temperature}} <span>&#176;</span>C</h1>
+{% endblock%}
+

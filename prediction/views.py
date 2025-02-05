@@ -1,5 +1,6 @@
 from django.shortcuts import render , HttpResponse
 from prediction.models import TopDisasters
+import sqlite3
 # Create your views here.
 
 
@@ -44,5 +45,32 @@ def home(request):
                    )
 
 
-def prediction(request):    
-    return render(request, 'predictions.html')
+def prediction(request):   
+    district_name = [
+        'Aligarh','Ambedkar Nagar','Amethi','Amroha','Auraiya','Azamgarh','Baghpat','Bahraich','Ballia','Balrampur','Banda','Barabanki','Bareilly','Basti','Bhadohi','Bijnor','Budaun','Bulandshahr','Chandauli','Chitrakoot','Deoria','Etah','Etawah','Farrukhabad','Fatehpur','Firozabad','Gautam Buddha Nagar','Ghaziabad','Ghazipur','Gonda','Hamirpur','Hapur','Hardoi','Hathras','Jalaun','Jaunpur','Kannauj','Kanpur Dehat','Kanpur Nagar','Kasganj','Kaushambi','Kushinagar','Lakhimpur Kheri','Lalitpur','Maharajganj','Mahoba','Mainpuri','Mau','Meerut','Mirzapur','Moradabad','Muzaffarnagar','Pilibhit','Pratapgarh','Prayagraj','Raebareli','Rampur','Saharanpur','Sambhal','Sant Kabir Nagar','Shahjahanpur','Shamli','Shrawasti','Siddharthnagar','Sitapur','Sonbhadra','Sultanpur','Unnao',
+        ] 
+    return render(request, 'predictions.html', {'district_name': district_name})
+
+def district_detail(request, district_name):
+    # Path to your database file
+    db_path = "prediction/ml/data/flood_data.db"
+
+     # Connecting to the SQLite database
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+     # Fetch district data
+    query = "SELECT  Max_Temp ,Rainfall, Wind_Speed FROM flood_data WHERE Station_Names = ?"
+    cursor.execute(query, (district_name,))
+    result = cursor.fetchone()
+
+    if result:
+        temperature , rainfall, wind_speed = result
+    else:
+        rainfall = wind_speed = None  # Handle case when no data is found 
+    # Close the connection
+    conn.close()
+    return render(request, 'district_detail.html', {"district": district_name,
+        "temperature": temperature,
+        "rainfall": rainfall,
+        "windspeed": wind_speed,})
