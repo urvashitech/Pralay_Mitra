@@ -62,11 +62,11 @@ body {
 }
 
 .district-link {
-    text-decoration: none;  /* Remove underline */
-    color: black;           /* Set text color to black */
+    text-decoration: none;  
+    color: black;           
 }
 
 .district-link:hover {
-    color: black;           /* Ensure text stays black on hover */
-    /* You can add a hover effect if needed, like changing the color on hover */
+    color: black;          
+    
 }

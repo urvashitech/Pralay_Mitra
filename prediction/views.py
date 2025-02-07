@@ -52,6 +52,7 @@ def prediction(request):
     return render(request, 'predictions.html', {'district_name': district_name})
 
 def district_detail(request, district_name):
+    district_name = district_name.replace('-', ' ').strip().capitalize()
     # Path to your database file
     db_path = "prediction/ml/data/flood_data.db"
 
@@ -60,17 +61,34 @@ def district_detail(request, district_name):
     cursor = conn.cursor()
 
      # Fetch district data
-    query = "SELECT  Max_Temp ,Rainfall, Wind_Speed FROM flood_data WHERE Station_Names = ?"
+    query = "SELECT  Station_Names, Period, Station_Number, Max_Temp, Rainfall, Relative_Humidity, Wind_Speed, Cloud_Coverage, Flood, Severity_Percentage   FROM flood_data WHERE Station_Names = ?"
     cursor.execute(query, (district_name,))
     result = cursor.fetchone()
 
     if result:
-        temperature , rainfall, wind_speed = result
+      (Station_Names, Period,Station_Number, Max_Temp, Rainfall, Relative_Humidity, Wind_Speed, Cloud_Coverage,Flood, Severity_Percentage) = result
     else:
-        rainfall = wind_speed = None  # Handle case when no data is found 
+       Station_Names= Period = Station_Number = Max_Temp = Rainfall = Relative_Humidity = Wind_Speed = Cloud_Coverage = Flood = Severity_Percentage =  None  # Handle case when no data is found 
     # Close the connection
     conn.close()
+
+    card = [
+        {"title": "Period", "value": f"{Period}", "icon": "fa-calendar-days","color": "#B0C4DE "},
+         {"title": "Pin Code", "value": f"{Station_Number}", "icon": "fa-map-pin","color":"#FF4500"},
+        {"title": "Temperature", "value": f"{Max_Temp} °C", "icon": "fa-temperature-high","color": "#FF5733"},
+        {"title": "Rainfall", "value": f"{Rainfall} mm", "icon": "fa-cloud-rain","color": "#4682B4"},
+        {"title": "Humidity", "value": f"{Relative_Humidity}%", "icon": "fa-tint", "color": "#1E90FF"},
+        {"title": "Wind Speed", "value": f"{Wind_Speed} km/h", "icon": "fa-wind","color": "#A9A9A9"},
+        {"title": "Cloud Coverage", "value": f"{Cloud_Coverage}%", "icon": "fa-cloud","color": "#B0C4DE"},
+        {"title": "Severity Percentage", "value": f"{Severity_Percentage}%", "icon": "fa-exclamation-triangle","color": "#FF4500"},
+        {"title": "Flood", "value": f"{Flood}", "icon": "fa-exclamation-triangle", "color": "#FFD700"},]
+    
     return render(request, 'district_detail.html', {"district": district_name,
-        "temperature": temperature,
-        "rainfall": rainfall,
-        "windspeed": wind_speed,})
+                                                    "station_name": Station_Names,
+                                                    "card": card,
+        })
+def response(request):
+    return render(request, 'response.html')
+
+def resource(request):
+    return render(request, 'resource.html')
