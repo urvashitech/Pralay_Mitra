@@ -40,8 +40,21 @@ def home(request):
     
     cities = TopDisasters.objects.order_by('rainFall')
 
+    # Fetch severity data from the database
+    db_path = "prediction/ml/data/flood_data.db"
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    query = "SELECT Station_Names, Severity_Percentage FROM flood_data"
+    cursor.execute(query)
+    severity_data = cursor.fetchall()
+    conn.close()
+
+    severity_dict = {row[0]: row[1] for row in severity_data}
+
+
     return render (request, 'home.html',
-                   {'cities': cities,}
+                   {'cities': cities,
+                    'severity_data': severity_dict,}
                    )
 
 
