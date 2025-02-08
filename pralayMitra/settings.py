@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path 
 
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyCre2Zu7crXsMnIkDE-Ek1XIoIsA6HkmUU")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
