@@ -1,7 +1,7 @@
 import requests
 from django.conf import settings
 
-gemini_api_key = "AIzaSyCre2Zu7crXsMnIkDE-Ek1XIoIsA6HkmUU"
+gemini_api_key = "your-api-key"
 
 disaster_prompts = {
     "before": "Provide disaster preparedness tips and warnings before an event.",

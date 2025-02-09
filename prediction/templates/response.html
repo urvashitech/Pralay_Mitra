@@ -226,7 +226,7 @@
         let botMessage = addMessage("Thinking...", "bot");
 
         try {
-            let response = await fetch("https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=AIzaSyCre2Zu7crXsMnIkDE-Ek1XIoIsA6HkmUU", {
+            let response = await fetch("https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key='your_api_key'", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
