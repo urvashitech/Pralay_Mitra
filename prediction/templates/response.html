@@ -1,11 +1,75 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-<title>Pralay_Mitra - response-plan</title>
+<title>Pralay_Mitra - Response Plan</title>
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock %}
 
 {% block content %}
 {% include "components/navbar.html" %}
-<h1>Welcome to Response Plan </h1>
+<h2 class="mt-4" style="margin-left: 20px;">Support & Assistance Center <i class="fa-solid fa-helicopter" style="color: #ff4500; "></i> </h2>
+<div class="container ">
+    <div class="row pt-4">
+        <div class="card shadow" style="width: 22rem; height: 22rem; margin-right: 50px;">
+            <div class="card-body">
+            <h4 class="card-title text-center">Before Disaster<i class="fa-solid fa-triangle-exclamation" style="color: gold; margin-left: 7px;"></i></h4>
+            <ul>
+                <li class="mt-4">
+                    <p> Monitor weather alerts, warnings, and flood forecasts via Pralay Mitra. </p>
+                </li>
+                <li>
+                    <p> Pack essentials: food, water (for at least 3 days), flashlight, batteries, first aid, cash, and important documents in waterproof bags. </p>
+                </li>
+                <li>
+                    <p> Elevate electrical appliances and valuable items above potential flood levels. </p>
+                </li>
+                
+            </ul>
+          
+            </div>
+        </div>
+        <div class="card shadow " style="width: 22rem; height: 22rem; margin-right: 50px;">
+            <div class="card-body">
+            <h4 class="card-title text-center">During Disaster<i class="fa-solid fa-bullhorn" style="color: #ff4500; margin-left: 7px;"></i></h4>
+            <ul>
+                <li class="mt-4">
+                    <p> Never drive or walk through floodwaters. </p>
+                </li>
+                <li>
+                    <p> Avoid Contact with Floodwater.  </p>
+                    <p> Wear protective gear if you must move through it. </p>
+                </li>
+                <li>
+                    <p>Use Pralay Mitra updates to track the situation.</p>
+                </li>
+                
+            </ul>
+          
+            </div>
+        </div>
+        <div class="card shadow" style="width: 22rem; height: 22rem; margin-right: 50px;">
+            <div class="card-body">
+            <h4 class="card-title text-center">After Disaster<i class="fa-solid fa-hand-holding-heart" style="color: #ffdbac; margin-left: 7px;"></i> </h4>
+            <ul>
+                <li class="mt-4">
+                    <p>Do not return home until it’s declared safe.</p>
+                </li>
+                <li>
+                    <p>Inspect walls, floors, and foundation for cracks or weaknesses.</p>
+                    <p>Avoid entering buildings with standing water inside.</p>
+                </li>
+                <li>
+                    <p>Do not turn on power until an electrician inspects your home.</p>
+                </li>
+                
+            </ul>
+          
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 {% endblock %}

@@ -1,61 +1,17 @@
 from django.shortcuts import render , HttpResponse
 from prediction.models import TopDisasters, Bulletin
 import sqlite3
-import folium
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .chatbot_service import get_chat_response
 # Create your views here.
 
 
 def home(request):
-    
-    bulletins = Bulletin.objects.order_by('-date')[:5]
     cities = TopDisasters.objects.order_by('rainFall')
-    db_path = "prediction/ml/data/flood_data.db"
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    
-    # Fetch district data including latitude, longitude, and severity score
-    query = "SELECT Station_Names, Latitude, Longitude, Severity_Percentage FROM flood_data "
-    cursor.execute(query)
-    districts_data = cursor.fetchall()
-    
-    # Close the connection to the database
-    conn.close()
-
-    # Create a folium map centered on Uttar Pradesh
-    m = folium.Map(location=[26.8, 80.9], zoom_start=6)  # Coordinates for UP
-    
-    # Function to assign color based on severity score
-    def get_color(severity):
-        if severity <= 25:
-            return 'lightgreen'
-        elif severity <= 50:
-            return 'yellow'
-        elif severity <= 75:
-            return 'orange'
-        else:
-            return 'red'
-    
-    # Add markers for each district with dynamic severity color coding
-    for district in districts_data:
-        district_name, latitude, longitude, severity_score = district
-        color = get_color(severity_score)
-        
-        # Add each district as a circle marker
-        folium.CircleMarker(
-            location=[latitude, longitude],
-            radius=8,
-            color='black',
-            fill=True,
-            fill_color=color,
-            fill_opacity=0.7,
-            tooltip=f"<strong>{district_name}</strong><br>Severity: {severity_score}%"
-        ).add_to(m)
-    
-    # Save the map as HTML
-    map_html = m._repr_html_()
-
     return render (request, 'home.html',
-                   {'cities': cities, 'map_html': map_html, 'bulletins': bulletins}
+                   {'cities': cities, }
                    )
 
 
@@ -102,7 +58,40 @@ def district_detail(request, district_name):
                                                     "card": card,
         })
 def response(request):
-    return render(request, 'response.html')
+    # Example data for the response plan
+    safety_tips = {
+        "before": [
+            "Prepare an emergency kit with essential supplies.",
+            "Create a family emergency plan and practice it regularly.",
+            "Stay informed about potential hazards in your area.",
+        ],
+        "during": [
+            "Follow evacuation orders from local authorities.",
+            "Stay indoors and away from windows during severe weather.",
+            "Use battery-powered devices to stay informed if power is lost.",
+        ],
+        "after": [
+            "Avoid floodwaters and downed power lines.",
+            "Check for injuries and provide first aid if needed.",
+            "Contact emergency services for assistance if required.",
+        ],
+    }
+
+    return render(request, 'response.html', {
+        "safety_tips": safety_tips,
+    })
+
+def chatbot_api(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            phase = data.get("phase", "before")
+            user_message = data.get("message", "")
+            bot_response = get_chat_response(phase, user_message)
+            return JsonResponse({"response": bot_response})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    return JsonResponse({"error": "Invalid request"}, status=400)
 
 def resource(request):
     return render(request, 'resource.html')
