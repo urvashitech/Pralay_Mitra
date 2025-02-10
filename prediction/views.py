@@ -1,60 +1,61 @@
 from django.shortcuts import render , HttpResponse
-from prediction.models import TopDisasters
+from prediction.models import TopDisasters, Bulletin
 import sqlite3
+import folium
 # Create your views here.
 
 
 def home(request):
-    flood_data = [
-    {
-        'district': 'Gorakhpur',
-        'flood_prone_areas': 'Villages along the Rapti and Ghaghra rivers.',
-        'recent_incidents': 'In 2024, Gorakhpur faced severe flooding, affecting numerous villages and causing significant displacement.',
-        'image': 'images/img1.jpg'
-    },
-    {
-        'district': 'Ballia',
-        'flood_prone_areas': 'Areas near the confluence of the Ganga and Ghaghra rivers.',
-        'recent_incidents': 'In 2020, Ballia experienced flooding due to the Ganga river flowing above the danger mark, affecting several villages.',
-        'image': 'images/ballai.jpg'
-    },
-    {
-        'district': 'Lakhimpur Kheri',
-        'flood_prone_areas': 'Villages along the Sharda river.',
-        'recent_incidents': 'In 2024, the Sharda river was reported to be flowing above the danger mark at Palia Kalan, leading to flooding in nearby areas.',
-        'image': 'images/lakhimpur.webp'
-    },
-    {
-        'district': 'Bahraich',
-        'flood_prone_areas': 'Regions near the Ghaghra river.',
-        'recent_incidents': 'In 2024, Bahraich faced severe flooding, with water entering nearly two dozen villages situated near the Ghaghra river.',
-        'image': 'images/bahraich.avif'
-    },
-    {
-        'district': 'Gonda',
-        'flood_prone_areas': 'Villages along the Ghaghra river.',
-        'recent_incidents': 'In 2024, Gonda experienced flooding, with water entering several villages near the Ghaghra river.',
-        'image': 'images/gonda.jpg'
-    }
-]
     
+    bulletins = Bulletin.objects.order_by('-date')[:5]
     cities = TopDisasters.objects.order_by('rainFall')
-
-    # Fetch severity data from the database
     db_path = "prediction/ml/data/flood_data.db"
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    query = "SELECT Station_Names, Severity_Percentage FROM flood_data"
+    
+    # Fetch district data including latitude, longitude, and severity score
+    query = "SELECT Station_Names, Latitude, Longitude, Severity_Percentage FROM flood_data "
     cursor.execute(query)
-    severity_data = cursor.fetchall()
+    districts_data = cursor.fetchall()
+    
+    # Close the connection to the database
     conn.close()
 
-    severity_dict = {row[0]: row[1] for row in severity_data}
-
+    # Create a folium map centered on Uttar Pradesh
+    m = folium.Map(location=[26.8, 80.9], zoom_start=6)  # Coordinates for UP
+    
+    # Function to assign color based on severity score
+    def get_color(severity):
+        if severity <= 25:
+            return 'lightgreen'
+        elif severity <= 50:
+            return 'yellow'
+        elif severity <= 75:
+            return 'orange'
+        else:
+            return 'red'
+    
+    # Add markers for each district with dynamic severity color coding
+    for district in districts_data:
+        district_name, latitude, longitude, severity_score = district
+        color = get_color(severity_score)
+        
+        # Add each district as a circle marker
+        folium.CircleMarker(
+            location=[latitude, longitude],
+            radius=8,
+            color='black',
+            fill=True,
+            fill_color=color,
+            fill_opacity=0.7,
+            tooltip=f"<strong>{district_name}</strong><br>Severity: {severity_score}%"
+        ).add_to(m)
+    
+    # Save the map as HTML
+    map_html = m._repr_html_()
 
     return render (request, 'home.html',
-                   {'cities': cities,
-                    'severity_data': severity_dict,}
+                   {'cities': cities, 'map_html': map_html, 'bulletins': bulletins}
                    )
 
 

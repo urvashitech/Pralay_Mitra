@@ -9,15 +9,14 @@
 
 {% block content %}
 {% include "components/navbar.html" %}
-
 <div class="container">
   <div class="row">
     <div class="col-md-5 ">
-      <h3 class="mt-5">
+      <h3 class="mt-4">
         High-Risk Zones Identified<i class=" fas fa-exclamation-triangle text-danger " style="margin-left: 3px;"></i></h3>
         
         {% for cities in cities|slice:"0:3"%}
-        <div class="card mb-3 mt-4 " style="width: 18rem; height: 11rem; margin-left: 100px; background-color:  #F0F7FF;">
+        <div class="card mb-3 mt-3 " style="width: 18rem; height: 11rem; margin-left: 100px; background-color:  #F0F7FF;">
           <div class="card-body">
             <h5 class="card-title  text-center mb-2">{{cities.cityName}}</h5>
             <p class="card-text mb-1 mt-0">Rainfall - {{cities.rainFall}}cm</p>
@@ -29,8 +28,16 @@
         </div>
         {% endfor %}    
   </div>
-  <div class="col-md-7 mt-4">
-    <div id="map" style="height: 500px; width: 45rem; border-radius: 10px;  margin-top: 70px;"></div>
+  <div class="col-md-7">
+    <div style= "border-radius: 10px;  margin-top: 15px; margin-left: 30px;">
+      <img src="/static/images/up_map2-removebg.png" alt="Logo" class="ms-2" style="height: 600px;"> 
+      <div style="margin-left: 125px;">
+      <span style="margin-right: 10px;"><i class="fas fa-circle" style="color: #7FFF00;"></i> No Warning  </span>
+      <span style="margin-right: 10px;"><i class="fas fa-circle" style="color: #FFF200; margin-right: 4px;"></i>Watch </span>
+      <span style="margin-right: 10px;"><i class="fas fa-circle" style="color: orange; margin-right: 4px;"></i>Alert  </span>
+      <span style="margin-right: 10px;"><i class="fas fa-circle" style="color: red; margin-right: 4px;"></i>Warning  </span>
+    </div>
+    </div>
 </div>
 </div>
 {% endblock %}
