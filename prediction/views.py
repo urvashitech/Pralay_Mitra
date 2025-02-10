@@ -1,6 +1,11 @@
 from django.shortcuts import render , HttpResponse
 from prediction.models import TopDisasters
 import sqlite3
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .chatbot_service import get_chat_response
 # Create your views here.
 
 
@@ -101,7 +106,40 @@ def district_detail(request, district_name):
                                                     "card": card,
         })
 def response(request):
-    return render(request, 'response.html')
+    # Example data for the response plan
+    safety_tips = {
+        "before": [
+            "Prepare an emergency kit with essential supplies.",
+            "Create a family emergency plan and practice it regularly.",
+            "Stay informed about potential hazards in your area.",
+        ],
+        "during": [
+            "Follow evacuation orders from local authorities.",
+            "Stay indoors and away from windows during severe weather.",
+            "Use battery-powered devices to stay informed if power is lost.",
+        ],
+        "after": [
+            "Avoid floodwaters and downed power lines.",
+            "Check for injuries and provide first aid if needed.",
+            "Contact emergency services for assistance if required.",
+        ],
+    }
+
+    return render(request, 'response.html', {
+        "safety_tips": safety_tips,
+    })
+
+def chatbot_api(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            phase = data.get("phase", "before")
+            user_message = data.get("message", "")
+            bot_response = get_chat_response(phase, user_message)
+            return JsonResponse({"response": bot_response})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    return JsonResponse({"error": "Invalid request"}, status=400)
 
 def resource(request):
     return render(request, 'resource.html')
