@@ -1,27 +1,56 @@
-import requests
-from django.conf import settings
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
 
-gemini_api_key = "your-api-key"
+load_dotenv()
+# Get the API key from .env file
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-disaster_prompts = {
-    "before": "Provide disaster preparedness tips and warnings before an event.",
-    "during": "Provide emergency response steps during a disaster event.",
-    "after": "Provide recovery and relief information after a disaster event."
-}
+if not GEMINI_API_KEY:
+    raise ValueError("Gemini API Key is missing. Check your .env file.")
 
-def get_chat_response(phase, prompt):
-    phase_prompt = disaster_prompts.get(phase, "")
-    headers = {
-        "Authorization": f"Bearer {gemini_api_key}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "model": "gemini-model",
-        "messages": [
-            {"role": "system", "content": phase_prompt},
-            {"role": "user", "content": prompt}
-        ]
-    }
-    response = requests.post("https://api.gemini.com/v1/chat/completions", headers=headers, json=data)
-    response_json = response.json()
-    return response_json["choices"][0]["message"]["content"]
+# Configure Gemini AI
+genai.configure(api_key=GEMINI_API_KEY)
+
+def get_chat_response(phase, user_message):
+    
+    try:
+        model = genai.GenerativeModel("gemini-pro")
+
+        
+        prompt = f"""
+         You are a disaster management assistant named Pralay Mitra.
+        Your task is to provide helpful, structured, and user-friendly responses to the user's queries. 
+        Keep the responses clear, concise, and break them into logical sections where appropriate.
+        Provide a response to the following user query, considering the '{phase}' phase:
+
+        User: {user_message}
+        """
+
+        response = model.generate_content(prompt)
+        formatted_response = format_user_friendly_response(response.text)
+        return formatted_response.strip()
+    except Exception as e:
+         return f"Sorry, I couldn't process your request at the moment. Error: {str(e)}"
+
+def format_user_friendly_response(response_text):
+    
+    # Example formatting:
+    formatted_response = response_text
+
+    # Step 1: Add bullet points (if response has lists)
+    if "1." in response_text or "-" in response_text:
+        formatted_response = "<ul>"
+        for line in response_text.splitlines():
+            if line.strip():
+                formatted_response += f"<li>{line.strip()}</li>"
+        formatted_response += "</ul>"
+
+    # Step 2: Bold important terms (e.g., phase names, disaster-related terms)
+    formatted_response = formatted_response.replace("evacuation", "<strong>Evacuation</strong>")
+    formatted_response = formatted_response.replace("safety", "<strong>Safety</strong>")
+
+    # Step 3: Add line breaks for clarity and better readability
+    formatted_response = formatted_response.replace("\n", "<br>")
+
+    return formatted_response
