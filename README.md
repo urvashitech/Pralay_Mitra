@@ -1,63 +1,33 @@
-# Pralay Mitra
+# 📌 Pralay Mitra - Disaster Management System
 
-Pralay Mitra is a disaster alert and weather forecast web application designed to provide real-time updates on floods, droughts, and other natural disasters. The application also includes safety features, emergency contacts, and precautionary measures.
+Pralay Mitra is an AI-powered disaster management system designed to assist government officials in making informed decisions during emergencies. It provides real-time insights, response plans, and resource allocation strategies to handle disasters efficiently.
 
-## Features
-- **Real-time Weather Forecasts**: Get accurate weather updates.
-- **Disaster Alerts**: Receive notifications about potential floods and droughts.
-- **Emergency Contact & Safety Tips**: Access emergency contacts and safety measures.
-- **Machine Learning Predictions**: Analyze data to predict upcoming weather events.
+## Features 🌟
 
-## Tech Stack
-- **Backend**: Django (Python)
-- **Frontend**: HTML, CSS, JavaScript
-- **Database**: SQLite
-- **Machine Learning**: Integrated for disaster prediction
+### 🔹 **Dashboard**
+- Interactive map displaying high-risk areas.
+- Top 3 high-risk locations listed with important calamity-related information.
 
-## Installation & Setup
-To run Pralay Mitra locally, follow these steps:
+### 🔹 **All Cities**
+- Displays a list of all cities in Uttar Pradesh.
+- Highlights the top 10 high-risk cities for quick access.
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/anujjainbatu/Pralay_Mitra.git
-cd Pralay_Mitra
-```
+### 🔹 **Detailed Page**
+- Provides disaster-related data for a specific city selected by the user.
+- Displays real-time alerts and essential information.
 
-### 2. Create a Virtual Environment (Optional but Recommended)
-```bash
-python -m venv venv
-source venv/bin/activate  # On macOS/Linux
-venv\Scripts\activate    # On Windows
-```
+### 🔹 **Response Plan (🤖)**
+- AI-powered chatbot (integrated with Gemini API) assists in emergency response.
+- Offers step-by-step disaster handling guidance.
+- Helps government officials make well-informed decisions.
 
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
+### 🔹 **Resources (Support & Assistance Center 🤝)**
+- Lists emergency resources such as food, shelter, and medical aid.
+- Ensures efficient distribution of relief supplies.
 
-### 4. Apply Database Migrations
-```bash
-python manage.py migrate
-```
-
-### 5. Run the Development Server
-```bash
-python manage.py runserver
-```
-
-The application will now be accessible at `http://127.0.0.1:8000/`.
-
-## Usage
-1. Open the application in a browser.
-2. Navigate through disaster alerts, weather reports, and safety guidelines.
-3. Use the prediction feature to analyze weather trends.
-
-## Contribution
-Feel free to fork this repository and submit pull requests to improve the project. Contributions are always welcome!
-
-## License
-This project is licensed under the MIT License.
-
----
-
-For any issues, please raise a GitHub issue or contact the repository owner.
+##  **Technologies Used**
+- **Django** - Backend framework for managing requests and responses.
+- **JavaScript** - Enhancing interactivity.
+- **Bootstrap** - Styling and responsive UI.
+- **FontAwesome** - Icons for visual enhancements.
+- **Gemini API** - AI chatbot for disaster response assistance.
