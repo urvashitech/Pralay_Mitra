@@ -11,7 +11,7 @@
 
 ### 👉 **All Cities**  
 - Displays a **list of all cities** in Uttar Pradesh.  
-- **Top 10 high-risk cities** prioritized for quick access.  
+- **Top 10 popular cities** prioritized for quick access.  
 
 ### 👉 **Detailed Page**  
 - Provides **disaster-related insights** for a selected city.  
