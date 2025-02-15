@@ -1,33 +1,66 @@
-# 📌 Pralay Mitra - Disaster Management System
+## 📌 **Pralay Mitra - AI-Powered Disaster Management System**  
+**Pralay Mitra** is an advanced disaster management system designed to assist government officials in handling emergencies efficiently. It provides real-time insights, AI-powered response plans, and resource management to ensure **quick decision-making during disasters**.  
 
-Pralay Mitra is an AI-powered disaster management system designed to assist government officials in making informed decisions during emergencies. It provides real-time insights, response plans, and resource allocation strategies to handle disasters efficiently.
+---
 
-## Features 🌟
+## 🚀 **Key Features**  
 
-### 🔹 **Dashboard**
-- Interactive map displaying high-risk areas.
-- Top 3 high-risk locations listed with important calamity-related information.
+### 👉 **Dashboard**  
+- Interactive **map** displaying high-risk areas.  
+- **Top 3** most vulnerable locations highlighted with key calamity-related data.  
 
-### 🔹 **All Cities**
-- Displays a list of all cities in Uttar Pradesh.
-- Highlights the top 10 high-risk cities for quick access.
+### 👉 **All Cities**  
+- Displays a **list of all cities** in Uttar Pradesh.  
+- **Top 10 high-risk cities** prioritized for quick access.  
 
-### 🔹 **Detailed Page**
-- Provides disaster-related data for a specific city selected by the user.
-- Displays real-time alerts and essential information.
+### 👉 **Detailed Page**  
+- Provides **disaster-related insights** for a selected city.  
+- Displays **real-time alerts & critical information**.  
 
-### 🔹 **Response Plan (🤖)**
-- AI-powered chatbot (integrated with Gemini API) assists in emergency response.
-- Offers step-by-step disaster handling guidance.
-- Helps government officials make well-informed decisions.
+### 👉 **Response Plan (🤖 AI Chatbot)**  
+- AI-powered **chatbot** (integrated with **Gemini API**) for emergency response.  
+- Step-by-step **disaster handling guidance**.  
+- Helps **government officials** make informed decisions.  
 
-### 🔹 **Resources (Support & Assistance Center 🤝)**
-- Lists emergency resources such as food, shelter, and medical aid.
-- Ensures efficient distribution of relief supplies.
+### 👉 **Resources (Support & Assistance Center 🤝)**  
+- Lists emergency **resources like food, shelter, and medical aid**.  
+- Ensures **efficient distribution of relief supplies**.  
 
-##  **Technologies Used**
-- **Django** - Backend framework for managing requests and responses.
-- **JavaScript** - Enhancing interactivity.
-- **Bootstrap** - Styling and responsive UI.
-- **FontAwesome** - Icons for visual enhancements.
-- **Gemini API** - AI chatbot for disaster response assistance.
+---
+
+## 🛠 **Technologies Used**  
+✅ **Django** – Backend framework for handling requests & responses.  
+✅ **JavaScript** – Enhancing interactivity.  
+✅ **Bootstrap** – Styling & responsive UI.  
+✅ **FontAwesome** – Icons for visual enhancements.  
+✅ **Gemini API** – AI chatbot for disaster response assistance.  
+
+---
+
+## 📅 **Installation & Setup**  
+
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/urvashitech/Pralay_Mitra.git
+   cd Pralay_Mitra
+   ```
+
+2. **Create & activate a virtual environment**  
+   ```bash
+   python -m venv env
+   source env/bin/activate   # For Mac/Linux
+   env\Scripts\activate      # For Windows
+   ```
+
+3. **Install dependencies**  
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run the Django server**  
+   ```bash
+   python manage.py runserver
+   ```
+
+---
+
